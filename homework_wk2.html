@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="kor">
+
+<head>
+
+    <!-- Webpage Title -->
+    <title>베스파 주문 페이지</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Myeongjo&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            font-family: 'Nanum Myeongjo', serif;
+        }
+
+        .wrap {
+            width: 500px;
+            margin: auto;
+        }
+
+        .card {
+            border: none;
+            margin: 15px auto 15px auto;
+            font-size: 15px;
+        }
+
+        .my-button {
+            margin: 10px auto 40px auto;
+        }
+    </style>
+
+    <script>
+        // [이름 부분]
+        // 1. input_name의 입력값을 가져온다.
+        // 2. 만약 입력값이 빈칸이면
+        // 3. alert('이름을 입력하세요!') 띄우기
+        // 4. 포커스를 이름에 맞추기
+        // 5. body에서 버튼에 함수 연결시키는 것 잊지 말기
+        function f1() {
+            let txt1 = $('#input_name').val();
+            if (txt1 == '') {
+                alert('이름을 입력하세요!');
+                $('#input_name').focus();
+            }
+        }
+
+        // [수량 부분]
+        // 1. input_quantity의 입력값을 가져온다.
+        // 2. 만약 입력값이 '수량을 선택하세요'라면(or: 숫자가 아니라면/ 1~3이 아니라면)
+        // 3. alert('수량을 선택하세요!') 띄우기
+        // 4. 포커스를 수량칸에 맞추기
+        // 5. body에서 버튼에 함수 연결시키는 것 잊지 말기
+        function f2() {
+            let qnt = $('#input_quantity').val();
+            // Q) 여기서 txt2 대신에 txt1을 쓸 수 있나요? (변수명도 id값처럼 유일해야 하는건지 궁금합니다)
+            if (qnt == '수량을 선택하세요') {
+                alert('수량을 선택하세요!');
+                $('#input_quantity').focus();
+            }
+        }
+
+        // [주소 부분]
+        // 1. input_address의 입력값을 가져온다.
+        // 2. 만약 입력값이 빈칸이라면
+        // 3. alert('주소를 입력하세요!') 띄우기
+        // 4. 포커스를 주소칸에 맞추기
+        // 5. body에서 버튼에 함수 연결시키는 것 잊지 말기
+        function f3() {
+            let ads = $('#input_address').val();
+            if (ads == '') {
+                alert('주소를 입력하세요!');
+                $('#input_address').focus();
+            }
+        }
+
+        // [전화번호 부분]
+        // 1. input_phonenum의 입력값을 가져온다.
+        // 2. 만약 입력값이 빈칸이라면
+        // 3. alert('전화번호를 입력하세요!') 띄우기
+        // 4. 만약 입력값이 10자리나 11자리가 아니라면(=10자리가 아니고, 11자리도 아니라면)
+        // 5. alert('전화번호를 다시 확인하세요!')' 띄우기
+        // 6. 포커스를 번호칸에 맞추기
+        // 7. body에서 버튼에  연결시키는 것 잊지 말기
+        function f4() {
+            let num = $('#input_phonenum').val();
+            if (num == '') {
+                alert('전화번호를 입력하세요!');
+                $('#input_phonenum').focus();
+            }
+            else if ((!num.length != 10) && (num.length != 11)) {
+                alert('전화번호를 다시 확인하세요!');
+                $('#input_phonenum').focus();
+            }
+        }
+
+        // [주문 정보 리스트] (만들지X)
+        // 1. alert이 한 번도 뜨지 않았다면 (??)
+        // 2. input_name, input_quantity, input_address, input_phonenum의 입력값을 가져온다
+        // 3. (list를 2.로 정의한다)
+        // 4. neworder를 정의한다(4가지 input값 연결)
+        // 5. list에 neworder를 추가한다
+        // 6. body의 table에서 list를 가져온다?
+    </script>
+
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="card">
+            <img class="card-img-top" src="https://i.pinimg.com/originals/d9/60/72/d96072dfe36798a6226f42a73a64ad7b.jpg"
+                alt="Card image cap">
+            <div class="card-body">
+                <form class="form-inline">
+                    <h3 class="card-title">베스파 스쿠터</h3>
+                    가격: 7,000,000원/대
+                </form>
+            </div>
+            <p> <span class="align-top">어디든 갈 수 있는 스쿠터! 바람을 즐기며 가고 싶었던 곳을 향해 달려보세요~
+                    <br>
+                    3월 18일까지 주문하신 분에 한해 맞춤 헬멧을 증정합니다!
+                </span></p>
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="name">주문자 성함</span>
+            </div>
+            <input type="text" class="form-control" id="input_name" aria-describedby="basic-addon3">
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="quantity">수량</label>
+            </div>
+            <select class="custom-select" id="input_quantity">
+                <option selected>수량을 선택하세요</option>
+                <option value="1">1 Vespa</option>
+                <option value="2">2 Vespas</option>
+                <option value="3">3 Vespas</option>
+            </select>
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="address">주소</span>
+            </div>
+            <input type="text" class="form-control" id="input_address" aria-describedby="basic-addon3">
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="phonenum">전화번호</span>
+            </div>
+            <input type="tel" class="form-control" id="input_phonenum" aria-describedby="basic-addon3">
+        </div>
+        <div class="text-center">
+            <div class="my-button">
+                <button onclick="f1(); f2(); f3(); f4()" type="button" class="btn btn-outline-secondary">주문하기</button>
+            </div>
+        </div>
+        <div class="orders">
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">이름</th>
+                        <th scope="col">수량</th>
+                        <th scope="col">주소</th>
+                        <th scope="col">전화번호</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
