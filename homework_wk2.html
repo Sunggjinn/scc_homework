@@ -46,58 +46,56 @@
     </style>
 
     <script>
-        // [이름 부분]
-        // 1. input_name의 입력값을 가져온다.
-        // 2. 만약 입력값이 빈칸이면
-        // 3. alert('이름을 입력하세요!') 띄우기
-        // 4. 포커스를 이름에 맞추기
-        // 5. body에서 버튼에 함수 연결시키는 것 잊지 말기
+        // 아래는 하나의 함수
         function f1() {
-            let txt1 = $('#input_name').val();
-            if (txt1 == '') {
+
+            // [가져오기]
+            // input_name의 입력값을 가져온다.
+            let name = $('#input_name').val();
+            // input_quantity의 입력값을 가져온다.
+            let qnt = $('#input_quantity').val();
+            // input_address의 입력값을 가져온다.
+            let ads = $('#input_address').val();
+            // input_phonenum의 입력값을 가져온다.
+            let num = $('#input_phonenum').val();
+
+            // [이름]
+            // 만약 입력값이 빈칸이면
+            // alert('이름을 입력하세요!') 띄우기
+            // 포커스를 이름에 맞추기
+            // body에서 버튼에 함수 연결시키는 것 잊지 말기
+            if (name == '') {
                 alert('이름을 입력하세요!');
                 $('#input_name').focus();
             }
-        }
 
-        // [수량 부분]
-        // 1. input_quantity의 입력값을 가져온다.
-        // 2. 만약 입력값이 '수량을 선택하세요'라면(or: 숫자가 아니라면/ 1~3이 아니라면)
-        // 3. alert('수량을 선택하세요!') 띄우기
-        // 4. 포커스를 수량칸에 맞추기
-        // 5. body에서 버튼에 함수 연결시키는 것 잊지 말기
-        function f2() {
-            let qnt = $('#input_quantity').val();
+            // [수량]
+            // 만약 입력값이 '수량을 선택하세요'라면(or: 숫자가 아니라면/ 1~3이 아니라면)
+            // alert('수량을 선택하세요!') 띄우기
+            // 포커스를 수량칸에 맞추기
+            // body에서 버튼에 함수 연결시키는 것 잊지 말기
             if (qnt == '수량을 선택하세요') {
                 alert('수량을 선택하세요!');
                 $('#input_quantity').focus();
             }
-        }
 
-        // [주소 부분]
-        // 1. input_address의 입력값을 가져온다.
-        // 2. 만약 입력값이 빈칸이라면
-        // 3. alert('주소를 입력하세요!') 띄우기
-        // 4. 포커스를 주소칸에 맞추기
-        // 5. body에서 버튼에 함수 연결시키는 것 잊지 말기
-        function f3() {
-            let ads = $('#input_address').val();
+            // [주소]
+            // 만약 입력값이 빈칸이라면
+            // alert('주소를 입력하세요!') 띄우기
+            // 포커스를 주소칸에 맞추기
+            // body에서 버튼에 함수 연결시키는 것 잊지 말기
             if (ads == '') {
                 alert('주소를 입력하세요!');
                 $('#input_address').focus();
             }
-        }
 
-        // [전화번호 부분]
-        // 1. input_phonenum의 입력값을 가져온다.
-        // 2. 만약 입력값이 빈칸이라면
-        // 3. alert('전화번호를 입력하세요!') 띄우기
-        // 4. 만약 입력값이 10자리나 11자리가 아니라면(=10자리가 아니고, 11자리도 아니라면)
-        // 5. alert('전화번호를 다시 확인하세요!')' 띄우기
-        // 6. 포커스를 번호칸에 맞추기
-        // 7. body에서 버튼에  연결시키는 것 잊지 말기
-        function f4() {
-            let num = $('#input_phonenum').val();
+            // [전화번호]
+            // 만약 입력값이 빈칸이라면
+            // alert('전화번호를 입력하세요!') 띄우기
+            // 만약 입력값이 10자리나 11자리가 아니라면(=10자리가 아니고, 11자리도 아니라면)
+            // alert('전화번호를 다시 확인하세요!')' 띄우기
+            // 포커스를 번호칸에 맞추기
+            // body에서 버튼에  연결시키는 것 잊지 말기
             if (num == '') {
                 alert('전화번호를 입력하세요!');
                 $('#input_phonenum').focus();
@@ -106,15 +104,14 @@
                 alert('전화번호를 다시 확인하세요!');
                 $('#input_phonenum').focus();
             }
-        }
 
-        // [주문 정보 리스트] (만들지X)
-        // 1. alert이 한 번도 뜨지 않았다면 (??)
-        // 2. input_name, input_quantity, input_address, input_phonenum의 입력값을 가져온다
-        // 3. (list를 2.로 정의한다)
-        // 4. neworder를 정의한다(4가지 input값 연결)
-        // 5. list에 neworder를 추가한다
-        // 6. body의 table에서 list를 가져온다?
+            // [주문 정보 리스트] (만들지X)
+            // 만약 위의 경우에 해당사항이 없다면(else)
+            // input_name(이름), input_quantity(수량), input_address(주소), input_phonenum(전화번호)의 입력값을 아래 표에 추가한다 (어떻게?? - https://dba-presents.com/index.php/jvm/javascript/111-adding-rows-to-html-table-with-jquery 참고)
+            else {
+                $('.orders').append("<tr><td>'#input_name'</td><td>'#input_quantity'</td><td>'input_address'</td><td>'#input_phonenum'</td></tr>");
+            }
+        }
     </script>
 
 </head>
@@ -166,14 +163,13 @@
         </div>
         <div class="text-center">
             <div class="my-button">
-                <button onclick="f1(); f2(); f3(); f4()" type="button" class="btn btn-outline-secondary">주문하기</button>
+                <button onclick="f1()" type="button" class="btn btn-outline-secondary">주문하기</button>
             </div>
         </div>
         <div class="orders">
             <table class="table">
                 <thead class="thead-light">
                     <tr>
-                        <th scope="col">#</th>
                         <th scope="col">이름</th>
                         <th scope="col">수량</th>
                         <th scope="col">주소</th>
@@ -182,6 +178,8 @@
                 </thead>
                 <tbody>
                     <tr>
+                        <td>
+                        </td>
                     </tr>
                 </tbody>
             </table>
