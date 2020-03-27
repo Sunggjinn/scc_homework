@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JQuery 연습하고 가기!</title>
+    <!-- JQuery를 import 합니다 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <style type="text/css">
+        div.question-box {
+            margin: 10px 0 20px 0;
+        }
+
+        div.newsbox {
+            width: 500px;
+        }
+
+        div.newsbox>div {
+            margin-top: 50px;
+            border: 1.5px solid #181818;
+            padding: 10px;
+        }
+
+        div.newsbox>div>img {
+            display: block;
+        }
+
+        div.newsbox>div>div.title-box {
+            margin: 30px 0 30px 0;
+        }
+
+        div.newsbox>div>div>a {
+            color: #181818;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        div.newsbox>div>div>h5 {
+            color: #5d5d5d;
+            margin: 4px 0 2px 0;
+        }
+
+        div.newsbox>div>p {
+            background-color: #d3e1e5;
+            padding: 5px;
+        }
+    </style>
+
+    <script>
+        function q1() {
+            let keyword = $('#input-keyword').val();
+            if (keyword == '') {
+                alert('키워드를 입력하세요!')
+                return;
+            }
+            // 기존 뉴스는 지운다(empty 활용)
+            $('news').empty('');
+            // api 이용, 기사 목록 가져오기
+            // articles는 list의 원소다. 기사 목록을 html code로 만들어서 id가 news인 것에 삽입한다(append 써서 & ajax 활용)
+            // 가져오는 url: 'http://newsapi.org/v2/everything?q=' + keyword + '&apiKey=5d6c1a1d4c0d4de1a60bc34087bb8655'
+            // jqajax : ajax 단축키
+            let url = 'http://newsapi.org/v2/everything?q=' + keyword + '&apiKey=5d6c1a1d4c0d4de1a60bc34087bb8655'
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: {},
+                success: function (response) {
+                    // 우선 response를 console.log로 찍어본다 -> 중간점검 목적
+                    // console.log(response); 
+                    // articles를 꺼낸다 
+
+                    let articles = response['articles'];
+                    // articles를 console.log로 찍어본다 -> 중간점검 목적
+                    // for문을 활용 + <a>태그로 url 감싸주기 + 요약 내용은 content + 날짜는 publishedAt + 이미지는 urltoImage
+                    // source: {id: null, name: "Bloter.net"}
+                    // author: "이상우"
+                    // title: "“문제 없다” 브라질 법원, ‘배터리 게이트’ 애플 편들어"
+                    // description: "구형 아이폰 성능을 고의로 저하시킨 애플 상대로 제기된 ‘배터리 게이트’ 소송에서 브라질 법원은 “애플 행동에는 문제없다”라며 소송을 기각했다.브라질 정치·법률 소프트웨어 연구소(IBDI)는 노후 배터리 아이폰의 동작 속도를 일부러 느리게 만든 애플의 조치는 사용자에게 정신적 피해를 입혔고 이에 대해 9억8600만헤알(약 2548억원)의 손해배상을 청구했으나 최근 법원이 기각한 것으로 알려진다.조앙 에그몬 판사는 애플의 조치는 “사용자로 하여금 새 아이폰 교체…"
+                    // url: "http://www.bloter.net/archives/373792"
+                    // urlToImage: "http://www.bloter.net/wp-content/uploads/2020/03/iPhone6s_battery.jpg"
+                    // publishedAt: "2020-03-08T22:48:12Z"
+                    // content: "구형 아이폰 성능을 고의로 저하시킨 애플 상대로 제기된 ‘배터리 게이트’ 소송에서 브라질 법원은 “애플 행동에는 문제없다”라며 소송을 기각했다.
+                    // ↵브라질 정치·법률 소프트웨어 연구소(IBDI)는 노후 배터리 아이폰의 동작 속도를 일부러 느리게 만든 애플의 조치는 사용자에게 정신적 피해를 입혔고 이에 대해 9억8600만헤알(약 2548억원)의 손해배상을 청구했으나 최근 법원이 기각한 것으로 알려진다.
+                    // ↵조앙 에그몬 판사는 애플의 조치는 “사용자로 하여금 새 아이… [+811 chars]"
+                    // __proto__: Object
+
+                    // 가져온 기사 목록을 html 코드로 만들어서 news에 삽입하고 append! 
+                    for (let i = 0; i < articles.length; i++) {
+                        console.log(articles[i]);
+                        let author = articles[i]['author'];
+                        let title = articles[i]['title'];
+                        let url = articles[i]['url'];
+                        let urlToImage = articles[i]['urlToImage'];
+                        let publishedAt = articles[i]['publishedAt'];
+                        let content = articles[i]['content'];
+                        console.log(author, title, url, urlToImage, publishedAt, content);
+
+                        let temp_html = '<div>\
+                                  <img src="'+imgurl+'" width="100%">\
+                                  <div class="title-box">\
+                                  <h5>'+date+' | '+author+'</h5>\
+                                  </div>\
+                                  <p>'+content+'</p>\
+                                </div>';
+                $('#news').append(temp_html);
+                    } 
+                }
+            });
+        }
+    </script>
+
+</head>
+
+<body>
+    <h1>JQuery+Ajax의 조합을 연습하자!</h1>
+
+    <hr />
+
+    <div class="question-box">
+        <h2>5. 뉴스 검색 API를 이용하기</h2>
+        <p>키워드에 걸맞는 뉴스를 띄워줍니다.</p>
+        <p>아무것도 입력하지 않으면, alert을 띄워주세요.</p>
+        <input type="text" id="input-keyword" placeholder="검색어를 입력하세요">
+        <button onclick="q1()">관련 기사보기</button>
+    </div>
+    <hr />
+    <div class="newsbox" id="news">
+        <div>
+            <img src="http://www.bloter.net/wp-content/uploads/2019/10/191029_pr-11st-apple-music2.png" width="100%">
+            <div class="title-box">
+                <a href="https://naver.com/" target="_blank">11번가, 애플뮤직 7개월 무료 이용 혜택 제공 나서</a>
+                <h5>2019-10-29T17:15:00Z | 글쓴이 </h5>
+            </div>
+            <p>여기에 기사 내용이 들어갑니다. 이 칸을 복사해서 Jquery로 html append 하는 데 쓰면 되겠죠? CSS는 추가/수정 할 필요 업습니다!</p>
+        </div>
+    </div>
+</body>
+
+</html>
