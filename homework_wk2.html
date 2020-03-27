@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="kor">
+<html lang="ko">
 
 <head>
 
@@ -109,7 +109,13 @@
             // 만약 위의 경우에 해당사항이 없다면(else)
             // input_name(이름), input_quantity(수량), input_address(주소), input_phonenum(전화번호)의 입력값을 아래 표에 추가한다 (어떻게?? - https://dba-presents.com/index.php/jvm/javascript/111-adding-rows-to-html-table-with-jquery 참고)
             else {
-                $('.orders').append("<tr><td>'#input_name'</td><td>'#input_quantity'</td><td>'input_address'</td><td>'#input_phonenum'</td></tr>");
+                let temp_html = '<tr>\
+                        <td>'+name+'</td> \
+                        <td>'+qnt+'</td>\
+                        <td>'+ads+'</td>\
+                        <td>'+num+'<td>\
+                    </tr>'
+                $('#mytbody').append(temp_html);
             }
         }
     </script>
@@ -176,11 +182,8 @@
                         <th scope="col">전화번호</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                        </td>
-                    </tr>
+                <tbody id="mytbody">
+                    
                 </tbody>
             </table>
         </div>
