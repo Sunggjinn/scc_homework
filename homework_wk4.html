@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+
+    <!-- Webpage Title -->
+    <title>베스파 주문 페이지</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Myeongjo&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            font-family: 'Nanum Myeongjo', serif;
+        }
+
+        .wrap {
+            width: 500px;
+            margin: auto;
+        }
+
+        .card {
+            border: none;
+            margin: 15px auto 15px auto;
+            font-size: 15px;
+        }
+
+        .my-button {
+            margin: 10px auto 40px auto;
+        }
+    </style>
+
+    <script>
+
+        // document.ready 함수 - 중괄호 안 내용들을 새로고침 때마다 실행해달라
+        $(document).ready(function () {
+            ('#mytbody').html('');
+            listing();
+        });
+
+
+        // 주문 작성하는 함수
+
+        function make_order() {
+            // 1. 이름, 수량, 주소, 전화번호를 가져온다. - id 확인하고 jquery 통해서 input box의 내용을 가져온다(val 활용)
+            let name_give = $('#input_name').val();
+            let quantity_give = $('#input_quantity').val();
+            let address_give = $('#input_address').val();
+            let phonenum_give = $('#input_phonenum').val();
+
+            // 2. 이름, 수량, 주소, 전화번호 중 하나라도 입력하지 않았을 경우 alert를 띄운다.
+            if (name_give =='') {
+                alert('이름을 입력해주세요.');
+                $('#input_name').focus();
+            } else if (quantity_give == '') {
+                alert('수량을 입력해주세요.');
+                $('#input_quantity').focus();
+            } else if (address_give = '') {
+                alert('주소를 입력해주세요.');
+                $('#input_address').focus();
+            } else if (phonenum_give = '') {
+                alert('전화번호를 입력해주세요.');
+                $('#phonenum_give').focus();
+                // 2-1. 이 경우 ajax query로 가지 말고 종료해라
+                return;
+            }
+
+            let data_give = {
+                'name_give': name_give,
+                'quantity_give': author_give,
+                'address_give': address_give,
+                'phonenum_give': phonenum_give
+            }
+
+            // 3. POST /orders에 저장을 요청한다.
+            $.ajax({
+                type: 'POST', // 타입을 작성
+                url: '/orders', // url을 작성
+                data: data_give, // data를 작성
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        alert(response['msg']);
+                        window.location.reload(); //새로고침하고 비우기(?)
+                    }
+                }
+            });
+        }
+
+
+        // 작성된 주문을 불러오는 함수 - GET 방식으로 orders 창구에 전체 목록을 요청
+        // 1. 리뷰 목록을 서버에 요청
+        // 2. 요청 성공 여부 확인
+        // 3. 요청 성공 시 리뷰를 올바르게 화면에 나타내기
+        function listing() {
+            $.ajax({
+                type: "GET",
+                url: "/orders",
+                data: {},
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        let orders = response['orders'];
+                        for (let i=0; i<orders.length; i++) {
+                            let order = orders[i];
+                            let name = orders['name'];
+                            let quantity = orders['quantity'];
+                            let address = orders['address'];
+                            let phonenum = orders['phonenum'];
+
+make_card(name, quantity, address, phonenum);
+                        }
+                    } else {
+                        alert('주문을 받아오지 못했습니다');
+                    }
+                }
+            });
+        }
+
+function make_card(name, quantity, address, phonenum) {
+    let temp_html = '<tr>\
+                        <td>'+ name_give + '</td> \
+                        <td>'+ quantity_give + '</td>\
+                        <td>'+ address_give + '</td>\
+                        <td>'+ phonenum_give + '<td>\
+                    </tr>'
+                $('#mytbody').append(temp_html);
+}
+
+    </script>
+
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="card">
+            <img class="card-img-top" src="https://i.pinimg.com/originals/d9/60/72/d96072dfe36798a6226f42a73a64ad7b.jpg"
+                alt="Card image cap">
+            <div class="card-body">
+                <form class="form-inline">
+                    <h3 class="card-title">베스파 스쿠터</h3>
+                    가격: 7,000,000원/대
+                </form>
+            </div>
+            <p> <span class="align-top">어디든 갈 수 있는 스쿠터! 바람을 즐기며 가고 싶었던 곳을 향해 달려보세요~
+                    <br>
+                    3월 18일까지 주문하신 분에 한해 맞춤 헬멧을 증정합니다!
+                </span></p>
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="name">주문자 성함</span>
+            </div>
+            <input type="text" class="form-control" id="input_name" aria-describedby="basic-addon3">
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="quantity">수량</label>
+            </div>
+            <select class="custom-select" id="input_quantity">
+                <option selected>수량을 선택하세요</option>
+                <option value="1">1 Vespa</option>
+                <option value="2">2 Vespas</option>
+                <option value="3">3 Vespas</option>
+            </select>
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="address">주소</span>
+            </div>
+            <input type="text" class="form-control" id="input_address" aria-describedby="basic-addon3">
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="phonenum">전화번호</span>
+            </div>
+            <input type="tel" class="form-control" id="input_phonenum" aria-describedby="basic-addon3">
+        </div>
+        <div class="text-center">
+            <div class="my-button">
+                <button onclick="make_order()" type="button" class="btn btn-outline-secondary">주문하기</button>
+            </div>
+        </div>
+        <div class="orders">
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">이름</th>
+                        <th scope="col">수량</th>
+                        <th scope="col">주소</th>
+                        <th scope="col">전화번호</th>
+                    </tr>
+                </thead>
+                <tbody id="mytbody">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
